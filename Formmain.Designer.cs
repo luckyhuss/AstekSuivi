@@ -191,7 +191,6 @@
             this.radioButtonLot21.Name = "radioButtonLot21";
             this.radioButtonLot21.Size = new System.Drawing.Size(40, 17);
             this.radioButtonLot21.TabIndex = 15;
-            this.radioButtonLot21.TabStop = true;
             this.radioButtonLot21.Tag = "OCEANE";
             this.radioButtonLot21.Text = "2.1";
             this.radioButtonLot21.UseVisualStyleBackColor = true;

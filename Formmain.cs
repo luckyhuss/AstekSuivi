@@ -50,12 +50,7 @@ namespace AstekSuivi
                             sbRecipients.Append(recipient.Address).Append("; ");
                         textBoxRecipients.Text = sbRecipients.ToString();
 
-                        textBoxFilename.Text = Path.Combine(
-                            String.Format(pathLot2, 
-                                String.IsNullOrEmpty(comboBoxProject.Text) ? "{0}" : comboBoxProject.Text,
-                                radioButtonLot21.Checked ? radioButtonLot21.Tag : radioButtonLot23.Checked ? radioButtonLot23.Tag : "{1}"),
-                            DateTime.Today.Year.ToString(),
-                            DateTime.Now.ToString("yyyyMMdd-HHmmss") + ".msg");
+                        textBoxFilename.Tag = Path.Combine(pathLot2, DateTime.Today.Year.ToString(), DateTime.Now.ToString("yyyyMMdd-HHmmss") + ".msg");
 
                         // first item only is considered
                         break;
@@ -67,7 +62,7 @@ namespace AstekSuivi
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.StackTrace);
             }
         }
 
@@ -86,7 +81,7 @@ namespace AstekSuivi
                 comboBoxProject.Text = "SPID";
             }
 
-                textBoxMailSubject.Text = subject;
+            textBoxMailSubject.Text = subject;
             textBoxMailBody.Text = body.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
         }
 
@@ -120,6 +115,7 @@ namespace AstekSuivi
         private void FormMain_Load(object sender, EventArgs e)
         {
             buttonAdd.Enabled = false;
+            textBoxFilename.Tag = string.Empty;
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -147,18 +143,21 @@ namespace AstekSuivi
 
         private void comboBoxProject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            textBoxFilename.Text = String.Format(textBoxFilename.Text, comboBoxProject.Text);
+            textBoxFilename.Text = String.Format(
+                textBoxFilename.Tag.ToString(), 
+                comboBoxProject.Text, radioButtonLot21.Checked ? radioButtonLot21.Tag : radioButtonLot23.Tag);
             buttonAdd.Enabled = true;
+            radioButtonLot21.Checked = true;
         }
 
         private void radioButtonLot21_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxFilename.Text = String.Format(textBoxFilename.Text, "{0}", radioButtonLot21.Tag);
+            textBoxFilename.Text = String.Format(textBoxFilename.Tag.ToString(), comboBoxProject.Text, radioButtonLot21.Tag);            
         }
 
         private void radioButtonLot23_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxFilename.Text = String.Format(textBoxFilename.Text, "{0}", radioButtonLot23.Tag);
+            textBoxFilename.Text = String.Format(textBoxFilename.Tag.ToString(), comboBoxProject.Text, radioButtonLot23.Tag);
         }
     }
 }
