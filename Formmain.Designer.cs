@@ -34,7 +34,7 @@
             this.textBoxMailDate = new System.Windows.Forms.TextBox();
             this.textBoxSender = new System.Windows.Forms.TextBox();
             this.textBoxRecipients = new System.Windows.Forms.TextBox();
-            this.textBoxFilename = new System.Windows.Forms.TextBox();
+            this.textBoxFilenameMail = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,11 +45,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.radioButtonLot21 = new System.Windows.Forms.RadioButton();
             this.radioButtonLot23 = new System.Windows.Forms.RadioButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxFilenameExcel = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(331, 347);
+            this.buttonAdd.Location = new System.Drawing.Point(331, 425);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(140, 23);
             this.buttonAdd.TabIndex = 0;
@@ -100,13 +102,13 @@
             this.textBoxRecipients.Size = new System.Drawing.Size(417, 20);
             this.textBoxRecipients.TabIndex = 5;
             // 
-            // textBoxFilename
+            // textBoxFilenameMail
             // 
-            this.textBoxFilename.Location = new System.Drawing.Point(70, 321);
-            this.textBoxFilename.Name = "textBoxFilename";
-            this.textBoxFilename.ReadOnly = true;
-            this.textBoxFilename.Size = new System.Drawing.Size(401, 20);
-            this.textBoxFilename.TabIndex = 6;
+            this.textBoxFilenameMail.Location = new System.Drawing.Point(61, 321);
+            this.textBoxFilenameMail.Name = "textBoxFilenameMail";
+            this.textBoxFilenameMail.ReadOnly = true;
+            this.textBoxFilenameMail.Size = new System.Drawing.Size(401, 20);
+            this.textBoxFilenameMail.TabIndex = 6;
             // 
             // label1
             // 
@@ -149,9 +151,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(9, 324);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Filename :";
+            this.label5.Text = "Mail : ";
             // 
             // comboBoxProject
             // 
@@ -160,7 +162,7 @@
             this.comboBoxProject.Items.AddRange(new object[] {
             "ASPIN",
             "SPID"});
-            this.comboBoxProject.Location = new System.Drawing.Point(70, 294);
+            this.comboBoxProject.Location = new System.Drawing.Point(61, 294);
             this.comboBoxProject.Name = "comboBoxProject";
             this.comboBoxProject.Size = new System.Drawing.Size(121, 21);
             this.comboBoxProject.TabIndex = 12;
@@ -178,7 +180,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(197, 297);
+            this.label7.Location = new System.Drawing.Point(188, 297);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(31, 13);
             this.label7.TabIndex = 14;
@@ -187,7 +189,7 @@
             // radioButtonLot21
             // 
             this.radioButtonLot21.AutoSize = true;
-            this.radioButtonLot21.Location = new System.Drawing.Point(234, 295);
+            this.radioButtonLot21.Location = new System.Drawing.Point(225, 295);
             this.radioButtonLot21.Name = "radioButtonLot21";
             this.radioButtonLot21.Size = new System.Drawing.Size(40, 17);
             this.radioButtonLot21.TabIndex = 15;
@@ -199,22 +201,40 @@
             // radioButtonLot23
             // 
             this.radioButtonLot23.AutoSize = true;
-            this.radioButtonLot23.Location = new System.Drawing.Point(280, 295);
+            this.radioButtonLot23.Location = new System.Drawing.Point(271, 295);
             this.radioButtonLot23.Name = "radioButtonLot23";
             this.radioButtonLot23.Size = new System.Drawing.Size(40, 17);
             this.radioButtonLot23.TabIndex = 16;
-            this.radioButtonLot23.TabStop = true;
             this.radioButtonLot23.Tag = "Lot 2.3";
             this.radioButtonLot23.Text = "2.3";
             this.radioButtonLot23.UseVisualStyleBackColor = true;
             this.radioButtonLot23.CheckedChanged += new System.EventHandler(this.radioButtonLot23_CheckedChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 350);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(39, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Excel :";
+            // 
+            // textBoxFilenameExcel
+            // 
+            this.textBoxFilenameExcel.Location = new System.Drawing.Point(61, 347);
+            this.textBoxFilenameExcel.Name = "textBoxFilenameExcel";
+            this.textBoxFilenameExcel.ReadOnly = true;
+            this.textBoxFilenameExcel.Size = new System.Drawing.Size(401, 20);
+            this.textBoxFilenameExcel.TabIndex = 17;
             // 
             // FormMain
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(483, 382);
+            this.ClientSize = new System.Drawing.Size(483, 493);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBoxFilenameExcel);
             this.Controls.Add(this.radioButtonLot23);
             this.Controls.Add(this.radioButtonLot21);
             this.Controls.Add(this.label7);
@@ -225,7 +245,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxFilename);
+            this.Controls.Add(this.textBoxFilenameMail);
             this.Controls.Add(this.textBoxRecipients);
             this.Controls.Add(this.textBoxSender);
             this.Controls.Add(this.textBoxMailDate);
@@ -252,7 +272,7 @@
         private System.Windows.Forms.TextBox textBoxMailDate;
         private System.Windows.Forms.TextBox textBoxSender;
         private System.Windows.Forms.TextBox textBoxRecipients;
-        private System.Windows.Forms.TextBox textBoxFilename;
+        private System.Windows.Forms.TextBox textBoxFilenameMail;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -263,6 +283,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RadioButton radioButtonLot21;
         private System.Windows.Forms.RadioButton radioButtonLot23;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxFilenameExcel;
     }
 }
 
