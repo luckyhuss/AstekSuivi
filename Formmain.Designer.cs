@@ -42,7 +42,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxProject = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.radioButtonLot21 = new System.Windows.Forms.RadioButton();
             this.radioButtonLot23 = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
@@ -177,36 +176,27 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "Project :";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(188, 297);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(31, 13);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Lot : ";
-            // 
             // radioButtonLot21
             // 
             this.radioButtonLot21.AutoSize = true;
-            this.radioButtonLot21.Location = new System.Drawing.Point(225, 295);
+            this.radioButtonLot21.Location = new System.Drawing.Point(188, 295);
             this.radioButtonLot21.Name = "radioButtonLot21";
-            this.radioButtonLot21.Size = new System.Drawing.Size(40, 17);
+            this.radioButtonLot21.Size = new System.Drawing.Size(55, 17);
             this.radioButtonLot21.TabIndex = 15;
             this.radioButtonLot21.Tag = "OCEANE";
-            this.radioButtonLot21.Text = "2.1";
+            this.radioButtonLot21.Text = "Lot2.1";
             this.radioButtonLot21.UseVisualStyleBackColor = true;
             this.radioButtonLot21.CheckedChanged += new System.EventHandler(this.radioButtonLot21_CheckedChanged);
             // 
             // radioButtonLot23
             // 
             this.radioButtonLot23.AutoSize = true;
-            this.radioButtonLot23.Location = new System.Drawing.Point(271, 295);
+            this.radioButtonLot23.Location = new System.Drawing.Point(249, 295);
             this.radioButtonLot23.Name = "radioButtonLot23";
-            this.radioButtonLot23.Size = new System.Drawing.Size(40, 17);
+            this.radioButtonLot23.Size = new System.Drawing.Size(55, 17);
             this.radioButtonLot23.TabIndex = 16;
             this.radioButtonLot23.Tag = "Lot 2.3";
-            this.radioButtonLot23.Text = "2.3";
+            this.radioButtonLot23.Text = "Lot2.3";
             this.radioButtonLot23.UseVisualStyleBackColor = true;
             this.radioButtonLot23.CheckedChanged += new System.EventHandler(this.radioButtonLot23_CheckedChanged);
             // 
@@ -237,7 +227,6 @@
             this.Controls.Add(this.textBoxFilenameExcel);
             this.Controls.Add(this.radioButtonLot23);
             this.Controls.Add(this.radioButtonLot21);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.comboBoxProject);
             this.Controls.Add(this.label5);
@@ -280,7 +269,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxProject;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RadioButton radioButtonLot21;
         private System.Windows.Forms.RadioButton radioButtonLot23;
         private System.Windows.Forms.Label label8;
