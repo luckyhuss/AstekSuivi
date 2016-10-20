@@ -181,10 +181,10 @@
             this.radioButtonLot21.AutoSize = true;
             this.radioButtonLot21.Location = new System.Drawing.Point(188, 295);
             this.radioButtonLot21.Name = "radioButtonLot21";
-            this.radioButtonLot21.Size = new System.Drawing.Size(55, 17);
+            this.radioButtonLot21.Size = new System.Drawing.Size(58, 17);
             this.radioButtonLot21.TabIndex = 15;
-            this.radioButtonLot21.Tag = "OCEANE";
-            this.radioButtonLot21.Text = "Lot2.1";
+            this.radioButtonLot21.Tag = "";
+            this.radioButtonLot21.Text = "Lot 2.1";
             this.radioButtonLot21.UseVisualStyleBackColor = true;
             this.radioButtonLot21.CheckedChanged += new System.EventHandler(this.radioButtonLot21_CheckedChanged);
             // 
@@ -193,10 +193,10 @@
             this.radioButtonLot23.AutoSize = true;
             this.radioButtonLot23.Location = new System.Drawing.Point(249, 295);
             this.radioButtonLot23.Name = "radioButtonLot23";
-            this.radioButtonLot23.Size = new System.Drawing.Size(55, 17);
+            this.radioButtonLot23.Size = new System.Drawing.Size(58, 17);
             this.radioButtonLot23.TabIndex = 16;
-            this.radioButtonLot23.Tag = "Lot 2.3";
-            this.radioButtonLot23.Text = "Lot2.3";
+            this.radioButtonLot23.Tag = "";
+            this.radioButtonLot23.Text = "Lot 2.3";
             this.radioButtonLot23.UseVisualStyleBackColor = true;
             this.radioButtonLot23.CheckedChanged += new System.EventHandler(this.radioButtonLot23_CheckedChanged);
             // 

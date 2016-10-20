@@ -57,19 +57,22 @@ namespace AstekSuivi
                     DateTime dateToken = mailItem.SentOn;
                     textBoxMailDate.Text = dateToken.ToString();
                     textBoxSender.Text = mailItem.SenderEmailAddress;
-
-                    SetProject(mailItem.Subject, mailItem.Body);
-
+                    
                     sbRecipients = new StringBuilder();
                     foreach (Microsoft.Office.Interop.Outlook.Recipient recipient in mailItem.Recipients)
+                    {
                         sbRecipients.Append(recipient.Address).Append("; ");
-                    textBoxRecipients.Text = sbRecipients.ToString();
+                    }
+                    textBoxRecipients.Text = sbRecipients.ToString().Trim();
 
                     mailNameForExcel = Path.Combine(dateToken.Year.ToString(), dateToken.ToString("yyyyMMdd-HHmmss") + ".msg");
                     textBoxFilenameMail.Tag = Path.Combine(pathLot2, mailNameForExcel);
                     textBoxFilenameExcel.Tag = String.Format(pathLot2, "{0}", ConfigurationManager.AppSettings["File.Suivi"]);
 
-                    // first item only is considered
+                    // set remaining text area
+                    SetProject(mailItem.Subject, mailItem.Body);
+
+                    // first mail item only is considered
                     break;
                 }
             }
@@ -128,7 +131,7 @@ namespace AstekSuivi
                 int index = textBoxMailBody.Text.IndexOf(mailBodyDelimiter);
                 string subBody = textBoxMailBody.Text.Substring(0, index);
 
-                DialogResult result = MessageBox.Show(this, "Body will be truncated : \n\n" + subBody, "Truncate body", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                DialogResult result = MessageBox.Show(this, "Body will be truncated : \n\n" + subBody, "Truncate body", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Cancel) return;
 
@@ -150,11 +153,24 @@ namespace AstekSuivi
                 
                 // update excel suivi
                 WriteToExcel();
+
+                MessageBox.Show(this, "Suivi has been updated", "Entry saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                ResetControls();
             }
             else
             {
                 MessageBox.Show(this, "Mail is not valid", "Details missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ResetControls()
+        {            
+            textBoxFilenameExcel.Text = textBoxFilenameMail.Text = textBoxMailBody.Text = textBoxMailDate.Text
+                = textBoxMailSubject.Text = textBoxRecipients.Text = textBoxSender.Text = string.Empty;
+
+            comboBoxProject.SelectedIndex = -1;
+            buttonAdd.Enabled = false;
         }
 
         private void WriteToExcel()
@@ -207,18 +223,18 @@ namespace AstekSuivi
             sheet.Cells[nextRow, (int)ExcelColumns.Mail].Style.Font.UnderLine = true;
             sheet.Cells[nextRow, (int)ExcelColumns.Mail].Style.Font.Color.SetColor(System.Drawing.Color.Blue);
 
-            sheet.Cells[nextRow, (int)ExcelColumns.Nom_KPI].Value = String.Format("{0} : {1}", __mail.SentOn.ToString("dd/MM"), textBoxMailSubject.Text);
+            sheet.Cells[nextRow, (int)ExcelColumns.Nom_KPI].Value = String.Format("[{0}] {1}", __mail.SentOn.ToString("dd/MM"), textBoxMailSubject.Text);
             sheet.Cells[nextRow, (int)ExcelColumns.Etat].Value = "En cours";
-
-            sheet.Calculate();
-
+            
             package.Save();
         }
 
         private void comboBoxProject_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBoxProject.SelectedIndex == -1) return;
+
             textBoxFilenameMail.Text = String.Format(textBoxFilenameMail.Tag.ToString(), 
-                comboBoxProject.Text, radioButtonLot21.Checked ? radioButtonLot21.Tag : radioButtonLot23.Tag);
+                comboBoxProject.Text, radioButtonLot21.Checked ? radioButtonLot21.Text : radioButtonLot23.Text);
             textBoxFilenameExcel.Text = String.Format(textBoxFilenameExcel.Tag.ToString(), comboBoxProject.Text);
 
             buttonAdd.Enabled = true;
@@ -227,12 +243,12 @@ namespace AstekSuivi
 
         private void radioButtonLot21_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxFilenameMail.Text = String.Format(textBoxFilenameMail.Tag.ToString(), comboBoxProject.Text, radioButtonLot21.Tag);
+            textBoxFilenameMail.Text = String.Format(textBoxFilenameMail.Tag.ToString(), comboBoxProject.Text, radioButtonLot21.Text);
         }
 
         private void radioButtonLot23_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxFilenameMail.Text = String.Format(textBoxFilenameMail.Tag.ToString(), comboBoxProject.Text, radioButtonLot23.Tag);
+            textBoxFilenameMail.Text = String.Format(textBoxFilenameMail.Tag.ToString(), comboBoxProject.Text, radioButtonLot23.Text);
         }
 
         //private void GetAttachmentsInfo(Microsoft.Office.Interop.Outlook.MailItem pMailItem)
