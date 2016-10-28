@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.buttonAdd = new System.Windows.Forms.Button();
             this.textBoxMailBody = new System.Windows.Forms.TextBox();
             this.textBoxMailSubject = new System.Windows.Forms.TextBox();
@@ -46,6 +48,10 @@
             this.radioButtonLot23 = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxFilenameExcel = new System.Windows.Forms.TextBox();
+            this.notifyIconMain = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonAdd
@@ -217,6 +223,32 @@
             this.textBoxFilenameExcel.Size = new System.Drawing.Size(401, 20);
             this.textBoxFilenameExcel.TabIndex = 17;
             // 
+            // notifyIconMain
+            // 
+            this.notifyIconMain.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIconMain.BalloonTipText = "Application running ..";
+            this.notifyIconMain.BalloonTipTitle = "Astek Suivi";
+            this.notifyIconMain.ContextMenuStrip = this.contextMenuStripMain;
+            this.notifyIconMain.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconMain.Icon")));
+            this.notifyIconMain.Text = "Astek Suivi ~ Anwar Buchoo";
+            this.notifyIconMain.Visible = true;
+            this.notifyIconMain.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIconMain_MouseClick);
+            // 
+            // contextMenuStripMain
+            // 
+            this.contextMenuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.contextMenuStripMain.Name = "contextMenuStripMain";
+            this.contextMenuStripMain.Size = new System.Drawing.Size(93, 26);
+            this.contextMenuStripMain.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStripMain_ItemClicked);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AllowDrop = true;
@@ -241,13 +273,17 @@
             this.Controls.Add(this.textBoxMailSubject);
             this.Controls.Add(this.textBoxMailBody);
             this.Controls.Add(this.buttonAdd);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Astek Suivi Mensuel";
+            this.Text = "Astek Suivi (Mensuel)";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormMain_DragDrop);
             this.DragOver += new System.Windows.Forms.DragEventHandler(this.FormMain_DragOver);
+            this.Resize += new System.EventHandler(this.FormMain_Resize);
+            this.contextMenuStripMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,6 +309,9 @@
         private System.Windows.Forms.RadioButton radioButtonLot23;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxFilenameExcel;
+        private System.Windows.Forms.NotifyIcon notifyIconMain;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripMain;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

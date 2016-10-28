@@ -1,9 +1,9 @@
-﻿using OfficeOpenXml;
+﻿using AstekSuivi.Model;
+using AstekSuivi.Service;
+using OfficeOpenXml;
 using System;
 using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -110,11 +110,42 @@ namespace AstekSuivi
                 textBoxMailBody.Text = textBoxMailBody.Text.Insert(mailBodyLength, mailBodyDelimiter);
             }
         }
-        
+
+        private void LoadSettings()
+        {
+            var settingsData = File.ReadAllLines(ConfigurationManager.AppSettings["File.Settings"], Encoding.Default);
+
+            foreach (var entry in settingsData)
+            {
+                // menu_type|menu_title|menu_link
+
+                // ignore commmented lines in settings.ini file
+                if (entry[0].Equals('#'))
+                {
+                    continue;
+                }
+
+                var namevalue = entry.Split('|');
+
+                CustomContextMenu ccm = new CustomContextMenu(namevalue[0], namevalue[2]);
+                var tsi = contextMenuStripMain.Items.Add(namevalue[1]);
+                tsi.Tag = ccm;
+                contextMenuStripMain.Items.Insert(0, tsi);
+            }
+        }
+
         private void FormMain_Load(object sender, EventArgs e)
         {
+            // load settings
+            LoadSettings();
+
             buttonAdd.Enabled = false;
             textBoxFilenameMail.Tag = textBoxFilenameExcel.Tag = string.Empty;
+
+            WindowState = FormWindowState.Minimized;
+            
+            // display balloon
+            notifyIconMain.ShowBalloonTip(500);
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -250,6 +281,51 @@ namespace AstekSuivi
         {
             textBoxFilenameMail.Text = String.Format(textBoxFilenameMail.Tag.ToString(), comboBoxProject.Text, radioButtonLot23.Text);
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+            if (FormWindowState.Minimized == this.WindowState)
+            {                
+                this.ShowInTaskbar = false;
+            }
+            else
+            {
+                this.ShowInTaskbar = true;
+            }
+        }
+
+        private void notifyIconMain_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right) return;
+
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Minimized;
+            }
+        }
+
+        private void contextMenuStripMain_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            CustomContextMenu ccm = e.ClickedItem.Tag as CustomContextMenu;
+            Launcher.LaunchControl(ccm);
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+
 
         //private void GetAttachmentsInfo(Microsoft.Office.Interop.Outlook.MailItem pMailItem)
         //{
