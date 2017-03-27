@@ -87,14 +87,24 @@ namespace AstekSuivi
             comboBoxProject.SelectedIndex = -1;
 
             // check if ASPIN or SPID
-            if (subject.ToLower().Contains("aspin") || body.ToLower().Contains("aspin"))
+            if (subject.ToLower().Contains("aspin")) // || body.ToLower().Contains("aspin"))
             {
                 comboBoxProject.Text = "ASPIN";
             }
 
-            if (subject.ToLower().Contains("spid") || body.ToLower().Contains("spid"))
+            if (subject.ToLower().Contains("spid")) // || body.ToLower().Contains("spid"))
             {
                 comboBoxProject.Text = "SPID";
+            }
+
+            if (subject.ToLower().Contains("scoop")) // || body.ToLower().Contains("scoop"))
+            {
+                comboBoxProject.Text = "SCOOP";
+            }
+
+            if (subject.ToLower().Contains("siclop")) // || body.ToLower().Contains("siclop"))
+            {
+                comboBoxProject.Text = "SICLOP";
             }
 
             textBoxMailSubject.Text = subject;
@@ -134,17 +144,30 @@ namespace AstekSuivi
             }
         }
 
+
+        private void LoadControls()
+        {
+            comboBoxProject.Items.AddRange(ConfigurationManager.AppSettings["Project.Name"].Split(';'));
+
+            // rhombus
+            labelChar.Text = mailBodyDelimiter;
+        }
+
         private void FormMain_Load(object sender, EventArgs e)
         {
             // load settings
             LoadSettings();
 
+            // load all UI controls
+            LoadControls();
+
             buttonAdd.Enabled = false;
             textBoxFilenameMail.Tag = textBoxFilenameExcel.Tag = string.Empty;
 
             WindowState = FormWindowState.Minimized;
-            
+
             // display balloon
+            notifyIconMain.BalloonTipText = "Application running ..";
             notifyIconMain.ShowBalloonTip(500);
         }
 
@@ -262,13 +285,23 @@ namespace AstekSuivi
 
         private void comboBoxProject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxProject.SelectedIndex == -1) return;
+            if (comboBoxProject.SelectedIndex == -1)
+            {
+                buttonAdd.Enabled = false;
+                return;
+            }
+            else if (!String.IsNullOrEmpty(textBoxFilenameMail.Text))
+            {
+                buttonAdd.Enabled = true;
+            }
 
+            textBoxFilenameExcel.Tag = String.Format(pathLot2, "{0}", ConfigurationManager.AppSettings["File.Suivi"]);
+            textBoxFilenameExcel.Text = String.Format(textBoxFilenameExcel.Tag.ToString(), comboBoxProject.Text);
+            
+            // mail msg
             textBoxFilenameMail.Text = String.Format(textBoxFilenameMail.Tag.ToString(), 
                 comboBoxProject.Text, radioButtonLot21.Checked ? radioButtonLot21.Text : radioButtonLot23.Text);
-            textBoxFilenameExcel.Text = String.Format(textBoxFilenameExcel.Tag.ToString(), comboBoxProject.Text);
-
-            buttonAdd.Enabled = true;
+            
             radioButtonLot21.Checked = true;
         }
 
@@ -325,7 +358,13 @@ namespace AstekSuivi
             this.WindowState = FormWindowState.Minimized;
         }
 
-
+        private void labelChar_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(mailBodyDelimiter);
+            // display balloon
+            notifyIconMain.BalloonTipText = "Copied to clipboard ..";
+            notifyIconMain.ShowBalloonTip(500);
+        }
 
         //private void GetAttachmentsInfo(Microsoft.Office.Interop.Outlook.MailItem pMailItem)
         //{

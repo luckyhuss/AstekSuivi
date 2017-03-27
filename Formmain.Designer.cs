@@ -51,14 +51,15 @@
             this.notifyIconMain = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelChar = new System.Windows.Forms.Label();
             this.contextMenuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(331, 425);
+            this.buttonAdd.Location = new System.Drawing.Point(331, 373);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(140, 23);
+            this.buttonAdd.Size = new System.Drawing.Size(131, 23);
             this.buttonAdd.TabIndex = 0;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -164,9 +165,6 @@
             // 
             this.comboBoxProject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxProject.FormattingEnabled = true;
-            this.comboBoxProject.Items.AddRange(new object[] {
-            "ASPIN",
-            "SPID"});
             this.comboBoxProject.Location = new System.Drawing.Point(61, 294);
             this.comboBoxProject.Name = "comboBoxProject";
             this.comboBoxProject.Size = new System.Drawing.Size(121, 21);
@@ -249,12 +247,23 @@
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // labelChar
+            // 
+            this.labelChar.AutoSize = true;
+            this.labelChar.Location = new System.Drawing.Point(58, 383);
+            this.labelChar.Name = "labelChar";
+            this.labelChar.Size = new System.Drawing.Size(39, 13);
+            this.labelChar.TabIndex = 19;
+            this.labelChar.Text = "Excel :";
+            this.labelChar.Click += new System.EventHandler(this.labelChar_Click);
+            // 
             // FormMain
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(483, 493);
+            this.ClientSize = new System.Drawing.Size(483, 406);
+            this.Controls.Add(this.labelChar);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBoxFilenameExcel);
             this.Controls.Add(this.radioButtonLot23);
@@ -312,6 +321,7 @@
         private System.Windows.Forms.NotifyIcon notifyIconMain;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripMain;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Label labelChar;
     }
 }
 
