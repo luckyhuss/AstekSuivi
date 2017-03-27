@@ -52,6 +52,7 @@
             this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelChar = new System.Windows.Forms.Label();
+            this.buttonOpenExcel = new System.Windows.Forms.Button();
             this.contextMenuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -257,12 +258,23 @@
             this.labelChar.Text = "Excel :";
             this.labelChar.Click += new System.EventHandler(this.labelChar_Click);
             // 
+            // buttonOpenExcel
+            // 
+            this.buttonOpenExcel.Location = new System.Drawing.Point(331, 292);
+            this.buttonOpenExcel.Name = "buttonOpenExcel";
+            this.buttonOpenExcel.Size = new System.Drawing.Size(131, 23);
+            this.buttonOpenExcel.TabIndex = 20;
+            this.buttonOpenExcel.Text = "Open";
+            this.buttonOpenExcel.UseVisualStyleBackColor = true;
+            this.buttonOpenExcel.Click += new System.EventHandler(this.buttonOpenExcel_Click);
+            // 
             // FormMain
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(483, 406);
+            this.Controls.Add(this.buttonOpenExcel);
             this.Controls.Add(this.labelChar);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBoxFilenameExcel);
@@ -322,6 +334,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripMain;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label labelChar;
+        private System.Windows.Forms.Button buttonOpenExcel;
     }
 }
 

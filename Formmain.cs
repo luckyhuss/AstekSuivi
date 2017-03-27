@@ -3,6 +3,7 @@ using AstekSuivi.Service;
 using OfficeOpenXml;
 using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -151,6 +152,11 @@ namespace AstekSuivi
 
             // rhombus
             labelChar.Text = mailBodyDelimiter;
+
+            // reset
+            textBoxFilenameMail.Tag = textBoxFilenameExcel.Tag = string.Empty;
+
+            buttonAdd.Enabled = buttonOpenExcel.Enabled = false;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -160,9 +166,6 @@ namespace AstekSuivi
 
             // load all UI controls
             LoadControls();
-
-            buttonAdd.Enabled = false;
-            textBoxFilenameMail.Tag = textBoxFilenameExcel.Tag = string.Empty;
 
             WindowState = FormWindowState.Minimized;
 
@@ -287,12 +290,12 @@ namespace AstekSuivi
         {
             if (comboBoxProject.SelectedIndex == -1)
             {
-                buttonAdd.Enabled = false;
+                buttonAdd.Enabled = buttonOpenExcel.Enabled= false;
                 return;
             }
-            else if (!String.IsNullOrEmpty(textBoxFilenameMail.Text))
+            else if (!string.IsNullOrEmpty(textBoxFilenameMail.Text))
             {
-                buttonAdd.Enabled = true;
+                buttonAdd.Enabled = buttonOpenExcel.Enabled = true;
             }
 
             textBoxFilenameExcel.Tag = String.Format(pathLot2, "{0}", ConfigurationManager.AppSettings["File.Suivi"]);
@@ -364,6 +367,14 @@ namespace AstekSuivi
             // display balloon
             notifyIconMain.BalloonTipText = "Copied to clipboard ..";
             notifyIconMain.ShowBalloonTip(500);
+        }
+
+        private void buttonOpenExcel_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBoxFilenameExcel.Text))
+            {
+                Process.Start(textBoxFilenameExcel.Text);
+            }
         }
 
         //private void GetAttachmentsInfo(Microsoft.Office.Interop.Outlook.MailItem pMailItem)
