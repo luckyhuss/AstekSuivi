@@ -87,30 +87,54 @@ namespace AstekSuivi
         {
             comboBoxProject.SelectedIndex = -1;
 
-            // check if ASPIN or SPID
-            if (subject.ToLower().Contains("aspin")) // || body.ToLower().Contains("aspin"))
-            {
-                comboBoxProject.Text = "ASPIN";
-            }
+            // check project in email
 
-            if (subject.ToLower().Contains("spid")) // || body.ToLower().Contains("spid"))
-            {
-                comboBoxProject.Text = "SPID";
-            }
-
-            if (subject.ToLower().Contains("scoop")) // || body.ToLower().Contains("scoop"))
-            {
-                comboBoxProject.Text = "SCOOP";
-            }
-
-            if (subject.ToLower().Contains("siclop")) // || body.ToLower().Contains("siclop"))
+            // check this first because of my signature in mails
+            if (subject.ToLower().Contains("siclop") || body.ToLower().Contains("siclop\r\n"))
             {
                 comboBoxProject.Text = "SICLOP";
             }
 
+            if (subject.ToLower().Contains("aspin") || body.ToLower().Contains("aspin\r\n"))
+            {
+                comboBoxProject.Text = "ASPIN";
+            }
+
+            if (subject.ToLower().Contains("spid") || body.ToLower().Contains("spid\r\n"))
+            {
+                comboBoxProject.Text = "SPID";
+            }           
+
+            if (subject.ToLower().Contains("scoop") || body.ToLower().Contains("scoop\r\n"))
+            {
+                comboBoxProject.Text = "SCOOP";
+            }            
+
             textBoxMailSubject.Text = subject;
             // remove white spaces / empty lines
             textBoxMailBody.Text = Regex.Replace(body, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
+
+            /// 17/07/2017 OCEANE mail
+            // serach for "Commentaire de nos services :"
+            int index = textBoxMailBody.Text.IndexOf("Commentaire de nos services :\r\n");
+
+            if (index != -1)
+            {
+                // text found => there mail from OCEANE
+                textBoxMailBody.Text = textBoxMailBody.Text.Substring(index, textBoxMailBody.Text.Length - index - 1);
+
+                // replace "Commentaire de nos services :"
+                textBoxMailBody.Text = textBoxMailBody.Text.Replace("Commentaire de nos services :\r\n", string.Empty);
+
+                // search "Nous continuons à traiter ce ticket"
+                index = textBoxMailBody.Text.IndexOf("Nous continuons à traiter ce ticket");
+
+                if (index != -1)
+                {
+                    // text found
+                    textBoxMailBody.Text = textBoxMailBody.Text.Substring(0, index - 1);
+                }
+            }
 
             if (textBoxMailBody.Text.Length < mailBodyLength)
             {
@@ -296,6 +320,9 @@ namespace AstekSuivi
             else if (!string.IsNullOrEmpty(textBoxFilenameMail.Text))
             {
                 buttonAdd.Enabled = buttonOpenExcel.Enabled = true;
+            } else
+            {
+                buttonOpenExcel.Enabled = true;
             }
 
             textBoxFilenameExcel.Tag = String.Format(pathLot2, "{0}", ConfigurationManager.AppSettings["File.Suivi"]);
@@ -305,7 +332,8 @@ namespace AstekSuivi
             textBoxFilenameMail.Text = String.Format(textBoxFilenameMail.Tag.ToString(), 
                 comboBoxProject.Text, radioButtonLot21.Checked ? radioButtonLot21.Text : radioButtonLot23.Text);
             
-            radioButtonLot21.Checked = true;
+            // lot 2.3 by default
+            radioButtonLot23.Checked = true;
         }
 
         private void radioButtonLot21_CheckedChanged(object sender, EventArgs e)

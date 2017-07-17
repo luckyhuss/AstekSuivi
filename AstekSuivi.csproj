@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>funnel.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">
       <HintPath>..\_main_repo\EPPlus.dll</HintPath>
@@ -118,6 +121,9 @@
   <ItemGroup>
     <Folder Include="Persistence\" />
     <Folder Include="UI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="funnel.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
