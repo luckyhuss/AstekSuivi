@@ -71,9 +71,15 @@ namespace AstekSuivi
                     textBoxFilenameExcel.Tag = String.Format(pathLot2, "{0}", ConfigurationManager.AppSettings["File.Suivi"]);
 
                     // set remaining text area
-                    SetProject(mailItem.Subject, mailItem.Body);
+                    string fwdEmailAddress = SetProject(mailItem.Subject, mailItem.Body);
 
-                    // first mail item only is considered
+                    /// 17/07/2017 - Forward email to collegues                    
+                    Microsoft.Office.Interop.Outlook.MailItem fwdMailItem = mailItem.Forward();
+                    
+                    fwdMailItem.Recipients.Add(fwdEmailAddress);
+                    fwdMailItem.Display(true);
+                    
+                    // first mail item only is considered -> so break from loop
                     break;
                 }
             }
@@ -83,9 +89,10 @@ namespace AstekSuivi
             }
         }
 
-        private void SetProject(string subject, string body)
+        private string SetProject(string subject, string body)
         {
             comboBoxProject.SelectedIndex = -1;
+            string fwdEmailAddress = string.Empty;
 
             // check project in email
 
@@ -93,28 +100,32 @@ namespace AstekSuivi
             if (subject.ToLower().Contains("siclop") || body.ToLower().Contains("siclop\r\n"))
             {
                 comboBoxProject.Text = "SICLOP";
+                fwdEmailAddress = "cfooahpiang@astek.mu";
             }
 
             if (subject.ToLower().Contains("aspin") || body.ToLower().Contains("aspin\r\n"))
             {
                 comboBoxProject.Text = "ASPIN";
+                fwdEmailAddress = "smaregadee@astek.mu";
             }
 
             if (subject.ToLower().Contains("spid") || body.ToLower().Contains("spid\r\n"))
             {
                 comboBoxProject.Text = "SPID";
+                fwdEmailAddress = "smaregadee@astek.mu";
             }           
 
             if (subject.ToLower().Contains("scoop") || body.ToLower().Contains("scoop\r\n"))
             {
                 comboBoxProject.Text = "SCOOP";
+                fwdEmailAddress = "cfooahpiang@astek.mu";
             }            
 
             textBoxMailSubject.Text = subject;
             // remove white spaces / empty lines
             textBoxMailBody.Text = Regex.Replace(body, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
 
-            /// 17/07/2017 OCEANE mail
+            /// 17/07/2017 - OCEANE mail
             // serach for "Commentaire de nos services :"
             int index = textBoxMailBody.Text.IndexOf("Commentaire de nos services :\r\n");
 
@@ -144,6 +155,8 @@ namespace AstekSuivi
             {
                 textBoxMailBody.Text = textBoxMailBody.Text.Insert(mailBodyLength, mailBodyDelimiter);
             }
+
+            return fwdEmailAddress;
         }
 
         private void LoadSettings()
